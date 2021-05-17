@@ -1,8 +1,16 @@
-import Test.HUnit
+import System.Exit (exitFailure)
+import Test.QuickCheck (Result(Success), Testable, quickCheckResult)
 
-test1 = TestCase (assertEqual "test1" 2 2)
+import TestParser
 
-tests = TestList [TestLabel "test1" test1]
+isPassed :: Result -> Bool
+isPassed (Success _ _ _ _ _ _) = True
+isPassed _ = False
 
-main :: IO ()
-main = runTestTT tests >>= print
+check :: Testable test => test -> IO ()
+check test = do
+  r <- quickCheckResult test
+  if not $ isPassed r then exitFailure else return ()
+
+main = do 
+  check test1
