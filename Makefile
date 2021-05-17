@@ -6,6 +6,14 @@ run:
 build:
 	cabal v2-build
 
+.PHONY: configure
+configure:
+	cabal v2-configure --enable-tests
+
+.PHONY: test
+test:
+	cabal v2-test
+
 .PHONY: clean
 clean::
 	-cabal v2-clean
