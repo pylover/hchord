@@ -1,16 +1,8 @@
-import System.Exit (exitFailure)
-import Test.QuickCheck (Result(Success), Testable, quickCheckResult)
+{-# OPTIONS_GHC -F -pgmF htfpp #-}
+module Main where
 
-import TestParser
+import Test.Framework
+import {-@ HTF_TESTS @-} TestParser
 
-isPassed :: Result -> Bool
-isPassed (Success _ _ _ _ _ _) = True
-isPassed _ = False
+main = htfMain htf_importedTests
 
-check :: Testable test => test -> IO ()
-check test = do
-  r <- quickCheckResult test
-  if not $ isPassed r then exitFailure else return ()
-
-main = do 
-  check test1

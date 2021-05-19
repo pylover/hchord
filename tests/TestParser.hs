@@ -1,5 +1,8 @@
-module TestParser (test1) where
+{-# OPTIONS_GHC -F -pgmF htfpp #-}
+module TestParser (htf_thisModulesTests) where
 
-test1 :: Bool
-test1 = 2 == 2
+import Test.Framework
+
+test_ = do
+  assertEqual 2 2
 
