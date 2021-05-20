@@ -1,8 +1,14 @@
 module Harmony where
 
-data Interval a = FullStep Int
-                | HalfStep Int
-                deriving(Show)
+data Interval = FullStep Int
+              | HalfStep Int
+
+instance Show Interval where
+  show (FullStep 1)  = "1 Step"
+  show (FullStep a)  = (show a) ++ " Steps"
+
+  show (HalfStep 1)  = "1 HalfStep"
+  show (HalfStep a)  = (show a) ++ " HalfSteps"
 
 data Note = AFlat
           | A
