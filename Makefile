@@ -1,6 +1,6 @@
 .PHONY: run
 run:
-	cabal v2-run
+	cabal v2-run hchord
 
 .PHONY: build
 build:
