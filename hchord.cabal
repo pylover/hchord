@@ -55,7 +55,8 @@ library
 
   -- Modules included in this library but not exported.
   other-modules:
-      Interval
+      TypeClasses
+    , Interval
     , Note
   -- LANGUAGE extensions used by modules in this package.
   -- other-extensions:
@@ -94,7 +95,9 @@ Test-Suite test-interval
   Type:                exitcode-stdio-1.0
   Main-is:             tests/test-interval.hs
   Build-depends:       base, HTF
-  other-modules:       Interval
+  other-modules:       
+      TypeClasses
+    , Interval
   --hs-source-dirs:    tests
   default-language:    Haskell2010
 
@@ -102,6 +105,9 @@ Test-Suite test-note
   Type:                exitcode-stdio-1.0
   Main-is:             tests/test-note.hs
   Build-depends:       base, HTF
-  other-modules:       Interval, Note
+  other-modules:
+      TypeClasses
+    , Interval
+    , Note
   --hs-source-dirs:    tests
   default-language:    Haskell2010

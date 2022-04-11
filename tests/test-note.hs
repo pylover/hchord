@@ -1,8 +1,11 @@
 {-# OPTIONS_GHC -F -pgmF htfpp #-}
 
 import Test.Framework hiding ((===))
-
+import HChord.Interval
 import HChord.Note
+import HChord.TypeClasses
+
+main = htfMain htf_thisModulesTests
 
 test_note_show = do
   assertEqual "Ab" $ show AFlat
@@ -17,7 +20,10 @@ test_note_eq = do
   assertNotEqual AFlat A
 
 test_note_alter = do
-  assertBool $ AFlat === AFlat
-  assertBool $ AFlat /== GSharp
+  assertBool $ alter AFlat /== AFlat
+  assertBool $ alter AFlat === GSharp
 
-main = htfMain htf_thisModulesTests
+test_note_constructor = do
+  assertEqual (note (WholeStep 1)) (note (HalfStep 2))
+  assertEqual (note (HalfStep 12)) A
+  assertEqual (note (HalfStep 13)) ASharp

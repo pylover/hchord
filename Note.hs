@@ -1,10 +1,7 @@
 module HChord.Note where
 
+import HChord.TypeClasses
 import HChord.Interval
-
-class ExactEq a where
-  (===) :: a -> a -> Bool
-  (/==) :: a -> a -> Bool
 
 data Note
   = A
@@ -29,6 +26,9 @@ data Note
 instance ExactEq Note where
   (===) a b = fromEnum a == fromEnum b
   (/==) a b = fromEnum a /= fromEnum b
+
+-- instance Transposable Note where
+--   (^) n (HalfStep h) = 
 
 instance Show Note where
   show AFlat  = "Ab"
@@ -82,6 +82,13 @@ note (HalfStep 8) = F
 note (HalfStep 9) = FSharp
 note (HalfStep 10) = G
 note (HalfStep 11) = GSharp
+note (WholeStep 0) = A
+note (WholeStep 1) = B
+note (WholeStep 2) = CSharp
+note (WholeStep 3) = DSharp
+note (WholeStep 4) = F
+note (WholeStep 5) = G
+note (HalfStep n) = note $ HalfStep (mod n 12)
 
 alter :: Note -> Note
 alter ASharp   = BFlat
