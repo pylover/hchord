@@ -1,6 +1,6 @@
 {-# OPTIONS_GHC -F -pgmF htfpp #-}
 
-import Test.Framework hiding ((===))
+import Test.Framework
 import HChord.Interval
 import HChord.TypeClasses
 
@@ -17,7 +17,6 @@ test_interval_eq = do
   assertEqual (HalfStep 2) (WholeStep 1)
   assertNotEqual (HalfStep 3) (WholeStep 2)
 
-test_interval_op = do
-  assertBool $ ((HalfStep 1) + (HalfStep 3)) === (WholeStep 2)
-  assertBool $ ((HalfStep 1) + (WholeStep 3)) === (HalfStep 7)
-
+test_interval_semigroup = do
+  assertBool $ (HalfStep 1 <> HalfStep 3) `is` (WholeStep 2)
+  assertBool $ (HalfStep 1 <> WholeStep 3) `is` (HalfStep 7)

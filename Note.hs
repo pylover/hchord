@@ -23,9 +23,9 @@ data Note
   | AFlat
   deriving (Enum)
 
-instance ExactEq Note where
-  (===) a b = fromEnum a == fromEnum b
-  (/==) a b = fromEnum a /= fromEnum b
+instance Is Note where
+  is a b = fromEnum a == fromEnum b
+  isNot a b = fromEnum a /= fromEnum b
 
 -- instance Transposable Note where
 --   (^) n (HalfStep h) = 
@@ -88,7 +88,7 @@ note (WholeStep 2) = CSharp
 note (WholeStep 3) = DSharp
 note (WholeStep 4) = F
 note (WholeStep 5) = G
-note (HalfStep n) = note $ HalfStep (mod n 12)
+note (HalfStep n) = note $ HalfStep (n `mod` 12)
 
 alter :: Note -> Note
 alter ASharp   = BFlat

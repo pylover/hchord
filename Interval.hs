@@ -13,10 +13,11 @@ instance Show Interval where
   show (HalfStep 1)  = "1 HalfStep"
   show (HalfStep a)  = (show a) ++ " HalfSteps"
 
-instance ExactEq Interval where
-  (===) (HalfStep a) (HalfStep b) = a == b
-  (===) (WholeStep a) (WholeStep b) = a == b
-  (===) _ _ = False
+instance Is Interval where
+  is (HalfStep a) (HalfStep b) = a == b
+  is (WholeStep a) (WholeStep b) = a == b
+  is _ _ = False
+  isNot a b = not $ is a b
 
 instance Eq Interval where
   (==) (HalfStep h) (WholeStep w) = h == (w * 2)
@@ -24,11 +25,11 @@ instance Eq Interval where
   (==) (HalfStep a) (HalfStep b) = a == b
   (==) (WholeStep a) (WholeStep b) = a == b
 
-instance Num Interval where
-  (+) (HalfStep a) (HalfStep b) = simplify $ HalfStep (a + b)
-  (+) (WholeStep w) (HalfStep b) = simplify $ HalfStep ((w * 2) + b)
-  (+) (HalfStep b) (WholeStep w) = simplify $ HalfStep ((w * 2) + b)
-  (+) (WholeStep a) (WholeStep b) = WholeStep (a + b)
+instance Semigroup Interval where
+  (<>) (WholeStep w) (HalfStep b) = simplify $ HalfStep ((w * 2) + b)
+  (<>) (HalfStep b) (WholeStep w) = simplify $ HalfStep ((w * 2) + b)
+  (<>) (HalfStep a) (HalfStep b) = simplify $ HalfStep (a + b)
+  (<>) (WholeStep a) (WholeStep b) = WholeStep (a + b)
 
 simplify :: Interval -> Interval
 simplify (HalfStep h)
