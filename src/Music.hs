@@ -1,10 +1,13 @@
 module Music 
-  ( Note(..),
-    Tone(..),
+  ( PitchClass(..),
+    Pitch(..),
+    Note(..),
+    Octave(..),
+    Accidental(..),
   ) where
 
 
-data Note 
+data PitchClass 
   = A 
   | B 
   | C 
@@ -35,13 +38,15 @@ data Accidental
   deriving (Show, Eq)
 
 
-data Tone = Tone
-  { getNote :: Note
-  , getAccidental :: Accidental
-  , getOctave :: Octave
-  } deriving (Show, Eq)
+data Note = Note PitchClass Accidental
+  deriving (Show, Eq)
 
 
--- data Chord 
---   = Triad 
---   | Seventh
+data Pitch = Pitch Note Octave
+  deriving (Show, Eq)
+
+
+data Chord 
+  = Minor Note
+  | Major Note
+  deriving (Show, Eq)

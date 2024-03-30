@@ -1,6 +1,10 @@
 module Main (main) where
 
-import Lib
+
+import Music
+
 
 main :: IO ()
-main = someFunc
+main = print n >> print p
+  where p = Pitch n Middle
+        n = Note A Natural
